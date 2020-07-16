@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.activedev.todo_note.signin.SigninViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="20dp"
+                android:text="@={viewModel.username}"
                 android:background="@drawable/edt_sigin"
                 android:drawableStart="@drawable/ic_username"
                 android:drawablePadding="20sp"
@@ -76,6 +84,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/edt_sigin"
                 android:drawableStart="@drawable/ic_email"
+                android:text="@={viewModel.email}"
                 android:drawablePadding="20sp"
                 android:elevation="5dp"
                 android:fontFamily="@font/the_raink"
@@ -89,6 +98,7 @@
                 android:background="@drawable/edt_sigin"
                 android:drawableStart="@drawable/ic_key"
                 android:drawablePadding="20sp"
+                android:text="@={viewModel.password}"
                 android:elevation="5dp"
                 android:fontFamily="@font/the_raink"
                 android:hint="@string/password"
@@ -120,6 +130,7 @@
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:onClick="@{(v) -> viewModel.onButtonClick(v)}"
             app:layout_constraintBottom_toTopOf="@+id/haveAcc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
