@@ -7,13 +7,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        tools:context="com.activedev.todo_note.MainActivity">
+        tools:context=".MainActivity">
 
         <RelativeLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="240dp"
             android:background="@drawable/back_signin"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,12 +35,22 @@
                 android:layout_marginHorizontal="30dp"
                 android:fontFamily="@font/tello_stick"
                 android:gravity="center"
-                android:text="@string/register"
+                android:text="@string/login"
                 android:textColor="@color/colorPrimary"
-                android:textSize="27sp"
+                android:textSize="29sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
+
+        <!--        <ImageView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="160dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:srcCompat="@drawable/ic_todo" />-->
+
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -66,20 +77,6 @@
                 android:elevation="5dp"
                 android:fontFamily="@font/the_raink"
                 android:hint="@string/username"
-                android:padding="15dp" />
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edtEmail"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/edt_sigin"
-                android:drawableStart="@drawable/ic_email"
-                android:drawablePadding="20sp"
-                android:elevation="5dp"
-                android:fontFamily="@font/the_raink"
-                android:hint="@string/email"
                 android:padding="15dp" />
 
             <com.google.android.material.textfield.TextInputEditText
@@ -115,10 +112,10 @@
             android:background="@drawable/back_button"
             android:elevation="7dp"
             android:fontFamily="@font/the_raink"
-            android:text="@string/register"
+            android:text="@string/login"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/haveAcc"
             app:layout_constraintEnd_toEndOf="parent"
@@ -142,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:fontFamily="@font/the_raink"
-                android:text="@string/have_an_account"
+                android:text="@string/don_t_have_an_account"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/button2" />
@@ -151,11 +148,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/the_raink"
-                android:text="@string/login"
-                android:textColor="#F85656"
+                android:text="@string/register"
+                android:textColor="#F24141"
                 android:textSize="15sp"
                 android:textStyle="bold"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/button2" />
 
