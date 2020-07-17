@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.activedev.todo_note.signin.SignInFragment"
+        android:name="com.activedev.todo_note.signUp.SignUpFragment"
         android:label="SignInFragment"
         tools:layout="@layout/fragment_sign_in">
         <action

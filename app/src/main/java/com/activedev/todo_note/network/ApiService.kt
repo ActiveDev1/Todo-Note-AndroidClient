@@ -1,5 +1,6 @@
 package com.activedev.todo_note.network
 
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,7 +19,7 @@ private val retrofit = Retrofit.Builder()
 interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("user/register")
-    fun postJson(@Body body: UserRequest?): Call<UserRequest>
+    fun postJson(@Body body: UserRequest?): Call<ResponseBody>
 }
 
 object Api {
