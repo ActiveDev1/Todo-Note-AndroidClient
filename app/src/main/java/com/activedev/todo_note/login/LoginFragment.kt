@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.activedev.todo_note.R
+import com.activedev.todo_note.databinding.FragmentLoginBinding
 
 
 class LoginFragment : Fragment() {
@@ -21,7 +21,8 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        val binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 
