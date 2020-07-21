@@ -53,26 +53,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="40dp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtUsername"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/edt_sigin"
             android:drawableStart="@drawable/ic_username"
             android:drawablePadding="20sp"
             android:elevation="5dp"
             android:fontFamily="@font/the_raink"
-            android:hint="@string/username"
+            android:hint="@string/username_or_email"
+            android:inputType="textEmailAddress"
             android:padding="15dp" />
 
         <com.google.android.material.textfield.TextInputEditText
@@ -85,6 +86,7 @@
             android:elevation="5dp"
             android:fontFamily="@font/the_raink"
             android:hint="@string/password"
+            android:inputType="textPassword"
             android:padding="15dp" />
 
         <TextView
@@ -100,7 +102,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnSigin"
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
@@ -113,14 +115,14 @@
         android:textColor="@color/colorPrimary"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/haveAcc"
+        app:layout_constraintBottom_toTopOf="@+id/NoAcc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <LinearLayout
-        android:id="@+id/haveAcc"
+        android:id="@+id/NoAcc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -145,7 +147,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/the_raink"
             android:text="@string/register"
-            android:textColor="#F24141"
+            android:textColor="#F85656"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

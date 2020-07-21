@@ -9,7 +9,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 
-private const val BASE_URL = "http://192.168.1.36:2080//TODO-Note/"
+private const val BASE_URL = "http://192.168.1.36//TODO-Note/"
 
 private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
@@ -19,7 +19,11 @@ private val retrofit = Retrofit.Builder()
 interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("user/register")
-    fun postJson(@Body body: UserRequest?): Call<ResponseBody>
+    fun createUser(@Body body: CreateUserRequest?): Call<ResponseBody>
+
+    @Headers("Content-Type: application/json")
+    @POST("user/login")
+    fun loginUser(@Body body: LoginUserRequest?): Call<ResponseBody>
 }
 
 object Api {

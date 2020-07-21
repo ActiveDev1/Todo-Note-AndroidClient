@@ -1,13 +1,17 @@
 package com.activedev.todo_note.signUp
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.activedev.todo_note.R
+import com.activedev.todo_note.SessionManager
 import com.activedev.todo_note.databinding.FragmentSignInBinding
 import com.activedev.todo_note.network.Api
-import com.activedev.todo_note.network.UserRequest
+import com.activedev.todo_note.network.CreateUserRequest
 import com.shashank.sony.fancytoastlib.FancyToast
 import okhttp3.ResponseBody
 import org.json.JSONException
@@ -19,6 +23,15 @@ import retrofit2.Response
 
 class SignUpFragment : Fragment() {
 
+    private lateinit var session: SessionManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        session = SessionManager(context)
+        if (session.isLoggedIn) {
+            findNavController().navigate(R.id.action_signInFragment_to_mainFragment)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +40,10 @@ class SignUpFragment : Fragment() {
     ): View? {
 
         val binding = FragmentSignInBinding.inflate(inflater, container, false)
+
+//        val sharedPref = activity?.getSharedPreferences(
+//            getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+
 
         binding.btnSigin.setOnClickListener {
             val name: String = binding.edtName.text.toString().trim()
@@ -72,7 +89,9 @@ class SignUpFragment : Fragment() {
             }
         }
 
-
+        binding.haveAcc.setOnClickListener {
+            findNavController().navigate(R.id.action_signInFragment_to_loginFragment)
+        }
 
         return binding.root
     }
@@ -80,8 +99,8 @@ class SignUpFragment : Fragment() {
     private fun isDataValid(name: String, userName: String, email: String, password: String) {
 
         try {
-            val call: Call<ResponseBody> = Api.retrofitService.postJson(
-                UserRequest(name, userName, email, password)
+            val call: Call<ResponseBody> = Api.retrofitService.createUser(
+                CreateUserRequest(name, userName, email, password)
             )
 
             call.enqueue(object : Callback<ResponseBody> {
@@ -97,12 +116,26 @@ class SignUpFragment : Fragment() {
                                 val data = result.getJSONObject("data")
                                 val token: String = data.getString("token")
                                 val username: String = data.getString("username")
+
                                 FancyToast.makeText(
                                     context,
                                     "Successfully created account",
                                     FancyToast.LENGTH_SHORT,
                                     FancyToast.SUCCESS, false
                                 ).show()
+
+                                val sharedPref = activity?.getSharedPreferences(
+                                    R.string.preference_file_key.toString()
+                                    , Context.MODE_PRIVATE
+                                ) ?: return
+                                with(sharedPref.edit()) {
+                                    putString(R.string.username.toString(), username)
+                                    putString(R.string.token.toString(), token)
+                                    apply()
+                                }
+                                session.setLogin(true)
+                                findNavController().navigate(R.id.action_signInFragment_to_mainFragment)
+
 
                             } else {
                                 val error = result.getString("error")
