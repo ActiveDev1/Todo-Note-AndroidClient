@@ -1,6 +1,7 @@
 package com.activedev.todo_note.signUp
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,13 +25,20 @@ import retrofit2.Response
 class SignUpFragment : Fragment() {
 
     private lateinit var session: SessionManager
+    lateinit var sharedPref: SharedPreferences
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         session = SessionManager(context)
         if (session.isLoggedIn) {
             findNavController().navigate(R.id.action_signInFragment_to_mainFragment)
         }
+
+        sharedPref = activity?.getSharedPreferences(
+            R.string.preference_file_key.toString(),
+            Context.MODE_PRIVATE
+        ) ?: return
     }
 
     override fun onCreateView(
@@ -124,10 +132,6 @@ class SignUpFragment : Fragment() {
                                     FancyToast.SUCCESS, false
                                 ).show()
 
-                                val sharedPref = activity?.getSharedPreferences(
-                                    R.string.preference_file_key.toString()
-                                    , Context.MODE_PRIVATE
-                                ) ?: return
                                 with(sharedPref.edit()) {
                                     putString(R.string.username.toString(), username)
                                     putString(R.string.token.toString(), token)

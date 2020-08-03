@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="70dp"
+    android:layout_gravity="center">
+
+
+    <ImageView
+        android:id="@+id/view"
+        android:layout_width="12dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/textTodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/view"
+        android:fontFamily="@font/opensans_bold"
+        android:text="Todo" />
+
+    <TextView
+        android:id="@+id/dueData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@+id/view"
+        android:fontFamily="@font/opensans_semibold"
+        android:text="dueData" />
+
+    <com.github.ivbaranov.mfb.MaterialFavoriteButton
+        android:id="@+id/btnFavored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        app:mfb_animate_favorite="true"
+        app:mfb_animate_unfavorite="false"
+        app:mfb_bounce_duration="300"
+        app:mfb_rotation_angle="360"
+        app:mfb_rotation_duration="400" />
+
+</RelativeLayout>

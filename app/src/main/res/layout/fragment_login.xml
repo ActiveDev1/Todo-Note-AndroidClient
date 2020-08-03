@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/Background"
     tools:context="com.activedev.todo_note.login.LoginFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -42,7 +42,7 @@
             android:fontFamily="@font/tello_stick"
             android:gravity="center"
             android:text="@string/login"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/Background"
             android:textSize="29sp"
             android:textStyle="bold" />
 
@@ -112,7 +112,7 @@
         android:fontFamily="@font/the_raink"
         android:text="@string/login"
         android:textAllCaps="false"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/Background"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/NoAcc"

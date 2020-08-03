@@ -38,7 +38,6 @@ class LoginFragment : Fragment() {
             val usernameOrEmail: String = binding.edtUsername.text.toString().trim()
             val password: String = binding.edtPass.text.toString().trim()
             val data = LoginValidat(usernameOrEmail, password)
-
             when {
                 usernameOrEmail.isEmpty() -> {
                     binding.edtUsername.error = "Enter a Username or E-Mail"
@@ -104,7 +103,8 @@ class LoginFragment : Fragment() {
                                     apply()
                                 }
                                 session.setLogin(true)
-                                findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+
+                                findNavController().navigate(R.id.action_loginFragment_to_nav_graph1)
 
                             } else {
                                 val error = result.getString("error")

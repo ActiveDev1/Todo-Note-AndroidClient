@@ -4,12 +4,10 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
-private const val BASE_URL = "http://192.168.1.36//TODO-Note/"
+private const val BASE_URL = "http://192.168.1.36//Todo-Note/"
 
 private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
@@ -24,6 +22,10 @@ interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("user/login")
     fun loginUser(@Body body: LoginUserRequest?): Call<ResponseBody>
+
+    @GET("todo")
+    fun getTodo(@Header("Authorization") auth: String?): Call<ResponseBody>
+
 }
 
 object Api {

@@ -5,19 +5,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.activedev.todo_note.databinding.FragmentMainBinding
+
 
 class MainFragment : Fragment() {
 
     private lateinit var session: SessionManager
 
+    lateinit var binding: FragmentMainBinding
+    private var navController: NavController? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         session = SessionManager(context)
         if (!session.isLoggedIn) {
             logoutUser()
         }
+
+        val nestedNavHostFragment =
+            childFragmentManager.findFragmentById(R.id.nav_host_fragment1) as? NavHostFragment
+        navController = nestedNavHostFragment?.navController
+        navController?.navigate(R.id.todoFragment)
+
     }
 
     override fun onCreateView(
@@ -25,14 +44,10 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-//        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
-//        val defaultValue = resources.getInteger(R.integer.saved_high_score_default_key)
-//        val highScore = sharedPref.getInt(getString(R.string.saved_high_score_key), defaultValue)
 
-        val binding = FragmentMainBinding.inflate(inflater, container, false)
-
-        return binding.root
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
+
 
     private fun logoutUser() {
         session.setLogin(false)
@@ -41,3 +56,4 @@ class MainFragment : Fragment() {
     }
 
 }
+
