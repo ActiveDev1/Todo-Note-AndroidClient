@@ -26,6 +26,12 @@ interface ApiService {
     @GET("todo")
     fun getTodo(@Header("Authorization") auth: String?): Call<ResponseBody>
 
+    @PATCH("todo")
+    fun updateTodo(
+        @Header("Authorization") auth: String?,
+        @Body body: UpdateTodo
+    ): Call<ResponseBody>
+
 }
 
 object Api {

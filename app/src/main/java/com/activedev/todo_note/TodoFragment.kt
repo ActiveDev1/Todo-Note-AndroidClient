@@ -13,14 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.activedev.todo_note.adapters.TodoAdapter
 import com.activedev.todo_note.databinding.FragmentTodoBinding
 import com.activedev.todo_note.model.Todo
-import com.activedev.todo_note.network.Api
-import com.shashank.sony.fancytoastlib.FancyToast
-import okhttp3.ResponseBody
-import org.json.JSONException
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.activedev.todo_note.network.Request
 import java.util.*
 
 
@@ -30,7 +23,7 @@ class TodoFragment : Fragment() {
     private lateinit var todoAdapter: TodoAdapter
     private var todo: MutableList<Todo> = ArrayList<Todo>()
     private lateinit var binding: FragmentTodoBinding
-    private val todoList: List<Todo>? = todo
+    private val todoList: List<Todo> = todo
 
 
     override fun onCreateView(
@@ -41,9 +34,27 @@ class TodoFragment : Fragment() {
         (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
         (activity as AppCompatActivity).supportActionBar?.title = ""
 
+//        sharedPref = activity?.getSharedPreferences(
+//            R.string.preference_file_key.toString(),
+//            Context.MODE_PRIVATE
+//        )!!
+//
+//        val token = sharedPref.getString(R.string.token.toString(), "")
+//
+//        todoAdapter = TodoAdapter(todo)
+//        binding.todoList.layoutManager = LinearLayoutManager(
+//            context,
+//            LinearLayoutManager.VERTICAL,
+//            false
+//        )
+//        binding.todoList.adapter = todoAdapter
+
+
         binding.floatingActionButton.setOnClickListener {
             Toast.makeText(context, "Testing ...", Toast.LENGTH_SHORT).show()
         }
+
+
 
         return binding.root
     }
@@ -54,11 +65,14 @@ class TodoFragment : Fragment() {
         sharedPref = activity?.getSharedPreferences(
             R.string.preference_file_key.toString(),
             Context.MODE_PRIVATE
-        ) ?: return
+        )!!
 
         val token = sharedPref.getString(R.string.token.toString(), "")
 
-        todoAdapter = TodoAdapter(todo)
+        todoAdapter = TodoAdapter(todo, token)
+        val request = Request(context, token, todo)
+
+
         binding.todoList.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL,
@@ -66,87 +80,91 @@ class TodoFragment : Fragment() {
         )
         binding.todoList.adapter = todoAdapter
 
-        todoAdapter.setOnItemClickListener(object : TodoAdapter.OnItemClickListener {
-            override fun onItemClick(position: Int) {
-                TODO("Not yet implemented")
-            }
+        /* todoAdapter.setOnItemClickListener(object : TodoAdapter.OnItemClickListener {
+             override fun onBtnClick(position: Int) {
 
-            override fun onBtnClick(position: Int) {
-                val todo = todoList?.get(position)
-//                if (todo?.isFavored.equals("0"))
-
-            }
-
-        })
-
-        try {
-            val call: Call<ResponseBody> = Api.retrofitService.getTodo(token)
-            call.enqueue(object : Callback<ResponseBody> {
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
-                    if (response.isSuccessful) {
-                        val res = response.body()!!.string()
-                        if (response.isSuccessful) {
-                            try {
-                                if (res.isEmpty()) {
-                                    Toast.makeText(
-                                        context,
-                                        "No Todo",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                } else {
-                                    val resp = JSONObject(res)
-                                    val dataArray = resp.getJSONArray("data")
-                                    for (i in 0 until dataArray.length()) {
-                                        val jsonObject: JSONObject = dataArray.getJSONObject(i)
-
-                                        val id = jsonObject.getString("id")
-                                        val text = jsonObject.getString("text")
-                                        val dueDate = jsonObject.getString("due_date")
-                                        val createdAt = jsonObject.getString("created_at")
-                                        val updatedAt = jsonObject.getString("updated_at")
-                                        val isDone = jsonObject.getString("is_done")
-                                        val isFavored = jsonObject.getString("is_favored")
-
-                                        todo.add(
-                                            Todo(
-                                                id,
-                                                text,
-                                                dueDate,
-                                                createdAt,
-                                                updatedAt,
-                                                isDone,
-                                                isFavored
-                                            )
-                                        )
-
-                                    }
-                                    todoAdapter.notifyDataSetChanged()
-
-                                }
-                            } catch (e: JSONException) {
-                                e.printStackTrace()
-                            }
-
-                        }
+                 val todo = todoList[position]
 
 
-                    }
-                }
+                 FancyToast.makeText(
+                     context,
+                    todo.isFavored + " test",
+                     FancyToast.LENGTH_SHORT,
+                     FancyToast.ERROR, false
+                 ).show()
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    FancyToast.makeText(
-                        context,
-                        "Error on connection !!",
-                        FancyToast.LENGTH_SHORT,
-                        FancyToast.ERROR, false
-                    ).show()
-                }
-            })
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
+
+ //                if (todo.isFavored == "0") {
+ //                    updateTodo(token, position, todo.id, todo.text, todo.dueDate, todo.isDone, "1")
+ //                    Log.i("sssss", "To 1")
+ //
+ //                } else {
+ //                    updateTodo(token, position, todo.id, todo.text, todo.dueDate, todo.isDone, "0")
+ //                    Log.i("sssss", "To 0")
+ //
+ //                }
+             }
+
+         })*/
+        request.allTodo(todoAdapter)
+        todoAdapter.notifyDataSetChanged()
     }
+
+
+    /*  private fun updateTodo(
+          token: String?,
+          position: Int,
+          id: String,
+          text: String,
+          dueDate: String,
+          isDone: String,
+          isFavored: String
+      ) {
+          Log.i("sssss", "Nooooo")
+
+          try {
+              val call: Call<ResponseBody> = Api.retrofitService.updateTodo(
+                  token,
+                  UpdateTodo(id, text, dueDate, isDone, isFavored)
+              )
+              call.enqueue(object : Callback<ResponseBody> {
+                  override fun onResponse(
+                      call: Call<ResponseBody>,
+                      response: Response<ResponseBody>
+                  ) {
+                      if (response.isSuccessful) {
+                          try {
+                              val result = JSONObject(response.body()!!.string())
+                              val success = result.getBoolean("success")
+                              if (success) {
+                                  todoList[position].isFavored = "1"
+                                  Log.i("sssss", "Yeeeees")
+                              } else
+                                  Log.i("sssss", "Nooooo")
+                              todoAdapter.notifyDataSetChanged()
+
+                          } catch (e: JSONException) {
+                              e.printStackTrace()
+                          }
+
+
+                      } else
+                          Log.i("sssss", "Error on response")
+
+                  }
+
+                  override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                      FancyToast.makeText(
+                          context,
+                          "Error on connection !!",
+                          FancyToast.LENGTH_SHORT,
+                          FancyToast.ERROR, false
+                      ).show()
+                  }
+              })
+          } catch (e: IOException) {
+              e.printStackTrace()
+          }
+      }*/
+
 }

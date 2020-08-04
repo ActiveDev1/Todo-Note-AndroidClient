@@ -134,6 +134,7 @@ class SignUpFragment : Fragment() {
 
                                 with(sharedPref.edit()) {
                                     putString(R.string.username.toString(), username)
+                                    putString(R.string.name.toString(), name)
                                     putString(R.string.token.toString(), token)
                                     apply()
                                 }

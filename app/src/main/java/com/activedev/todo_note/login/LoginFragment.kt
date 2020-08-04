@@ -87,9 +87,10 @@ class LoginFragment : Fragment() {
                                 val data = result.getJSONObject("data")
                                 val token: String = data.getString("token")
                                 val username: String = data.getString("username")
+                                val name: String = data.getString("name")
                                 FancyToast.makeText(
                                     context,
-                                    "Welcome dear $username",
+                                    "Welcome dear $name",
                                     FancyToast.LENGTH_SHORT,
                                     FancyToast.SUCCESS, false
                                 ).show()
@@ -99,6 +100,7 @@ class LoginFragment : Fragment() {
                                 ) ?: return
                                 with(sharedPref.edit()) {
                                     putString(R.string.username.toString(), username)
+                                    putString(R.string.name.toString(), name)
                                     putString(R.string.token.toString(), token)
                                     apply()
                                 }
