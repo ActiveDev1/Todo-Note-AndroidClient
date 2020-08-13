@@ -18,6 +18,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:textColor="@color/txtColor"
+        android:textSize="16sp"
         android:layout_toEndOf="@+id/view"
         android:fontFamily="@font/opensans_bold"
         android:text="Todo" />
@@ -41,5 +43,11 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="15dp"
         android:background="@drawable/ic_star_off" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.3dp"
+        android:layout_alignParentBottom="true"
+        android:background="#E9E9E9" />
 
 </RelativeLayout>

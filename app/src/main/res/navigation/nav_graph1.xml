@@ -7,13 +7,28 @@
 
     <fragment
         android:id="@+id/noteFragment"
-        android:name="com.activedev.todo_note.NoteFragment"
+        android:name="com.activedev.todo_note.note.NoteFragment"
         android:label="fragment_note"
         tools:layout="@layout/fragment_note" />
 
     <fragment
         android:id="@+id/todoFragment"
-        android:name="com.activedev.todo_note.TodoFragment"
+        android:name="com.activedev.todo_note.todo.TodoFragment"
         android:label="fragment_todo"
-        tools:layout="@layout/fragment_todo" />
+        tools:layout="@layout/fragment_todo">
+        <action
+            android:id="@+id/action_todoFragment_to_addTodoFragment"
+            app:destination="@id/addTodoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTodoFragment"
+        android:name="com.activedev.todo_note.todo.AddTodoFragment"
+        android:label="fragment_add_todo"
+        tools:layout="@layout/fragment_add_todo">
+        <action
+            android:id="@+id/action_addTodoFragment_to_todoFragment3"
+            app:destination="@id/todoFragment"
+            app:popUpTo="@id/addTodoFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

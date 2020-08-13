@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".todo.AddTodoFragment"
+    tools:ignore="ContentDescription">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop">
+
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="15dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="30dp"
+            android:hint="@string/task_name"
+            android:textColorHint="#313131"
+            app:endIconMode="clear_text">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/todoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensans_regular"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlDueDate"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+        <ImageView
+            android:id="@+id/imgDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            app:srcCompat="@drawable/ic_date" />
+
+        <TextView
+            android:id="@+id/txtDueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/imgDate"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/due_date"
+            android:textColor="@color/txtColor"
+            android:textSize="18sp"
+            tools:viewBindingIgnore="true" />
+
+        <TextView
+            android:id="@+id/dueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtDueDate"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@+id/imgDate"
+            android:fontFamily="@font/opensans_regular"
+            android:text="@string/no_reminder_set"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1.3dp"
+            android:layout_alignStart="@+id/dueDate"
+            android:layout_alignParentBottom="true"
+            android:background="#E9E9E9" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rlReminder"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rlDueDate">
+
+        <ImageView
+            android:id="@+id/imgReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            app:srcCompat="@drawable/ic_reminder_off" />
+
+        <TextView
+            android:id="@+id/txtReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/imgReminder"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/reminder"
+            android:textColor="@color/txtColor"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/reminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtReminder"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@+id/imgReminder"
+            android:fontFamily="@font/opensans_regular"
+            android:text="@string/don_t_remind_me"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1.3dp"
+            android:layout_alignStart="@+id/reminder"
+            android:layout_alignParentBottom="true"
+            android:background="#E9E9E9" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rlReminderType"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlReminder">
+
+        <ImageView
+            android:id="@+id/imgReminderType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            app:srcCompat="@drawable/ic_alarm" />
+
+        <TextView
+            android:id="@+id/txtReminderType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/imgReminderType"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/reminder_type"
+            android:textColor="@color/txtColor"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/reminderType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtReminderType"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@+id/imgReminderType"
+            android:fontFamily="@font/opensans_regular"
+            android:text="@string/none"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1.3dp"
+            android:layout_alignStart="@+id/txtReminderType"
+            android:layout_alignParentBottom="true"
+            android:background="#E9E9E9" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlPriority"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlReminderType">
+
+        <ImageView
+            android:id="@+id/imgPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            app:srcCompat="@drawable/ic_flag" />
+
+        <TextView
+            android:id="@+id/txtPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/imgPriority"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/priority"
+            android:textColor="@color/txtColor"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/priority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtPriority"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@+id/imgPriority"
+            android:fontFamily="@font/opensans_regular"
+            android:text="@string/none"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1.3dp"
+            android:layout_alignStart="@+id/priority"
+            android:layout_alignParentBottom="true"
+            android:background="#E9E9E9" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlIsFavored"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlPriority">
+
+        <ImageView
+            android:id="@+id/imgHighlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="17dp"
+            app:srcCompat="@drawable/ic_star_off" />
+
+        <TextView
+            android:id="@+id/txtHighlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/imgHighlight"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/highlight"
+            android:textColor="@color/txtColor"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/highlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtHighlight"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@+id/imgHighlight"
+            android:fontFamily="@font/opensans_regular"
+            android:text="@string/make_this_task_stand_out_in_the_list_view"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1.3dp"
+            android:layout_alignStart="@+id/highlight"
+            android:layout_alignParentBottom="true"
+            android:background="#E9E9E9" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlIsDone"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlIsFavored">
+
+        <ImageView
+            android:id="@+id/imgDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            app:srcCompat="@drawable/ic_not_done" />
+
+        <TextView
+            android:id="@+id/txtDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/imgDone"
+            android:fontFamily="@font/opensans_bold"
+            android:text="@string/completed"
+            android:textColor="@color/txtColor"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/timeDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtDone"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toEndOf="@+id/imgDone"
+            android:fontFamily="@font/opensans_regular"
+            android:textSize="14sp"
+            android:visibility="visible" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1.3dp"
+            android:layout_alignStart="@+id/txtDone"
+            android:layout_alignParentBottom="true"
+            android:background="#E9E9E9" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/saveTodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="27dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabSize="auto"
+        app:hideMotionSpec="@anim/design_fab_hide_motion_spec"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:showMotionSpec="@anim/design_fab_show_motion_spec"
+        app:srcCompat="@drawable/ic_add" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

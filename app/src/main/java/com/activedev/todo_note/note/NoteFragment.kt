@@ -1,4 +1,4 @@
-package com.activedev.todo_note
+package com.activedev.todo_note.note
 
 import android.os.Bundle
 import android.view.LayoutInflater

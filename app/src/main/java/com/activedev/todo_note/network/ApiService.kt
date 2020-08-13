@@ -32,6 +32,12 @@ interface ApiService {
         @Body body: UpdateTodo
     ): Call<ResponseBody>
 
+    @POST("todo")
+    fun createTodo(
+        @Header("Authorization") auth: String?,
+        @Body body: CreateTodo
+    ): Call<ResponseBody>
+
 }
 
 object Api {

@@ -13,4 +13,15 @@
     <string name="username_or_email">Username or Email</string>
     <string name="preference_file_key">UserPrefs</string>
     <string name="token">TOKEN</string>
+    <string name="due_date">Due Date</string>
+    <string name="reminder">Reminder</string>
+    <string name="don_t_remind_me">Don\'t remind me</string>
+    <string name="priority">Priority</string>
+    <string name="none">None</string>
+    <string name="highlight">Highlight</string>
+    <string name="make_this_task_stand_out_in_the_list_view">Make this task stand out in the list view</string>
+    <string name="task_name">Task name</string>
+    <string name="no_reminder_set">No reminder set</string>
+    <string name="completed">Completed</string>
+    <string name="reminder_type">Reminder Type</string>
 </resources>
