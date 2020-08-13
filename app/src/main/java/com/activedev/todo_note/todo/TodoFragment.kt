@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.activedev.todo_note.R
 import com.activedev.todo_note.adapters.TodoAdapter
 import com.activedev.todo_note.database.Reminder
@@ -99,6 +100,19 @@ class TodoFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_todoFragment_to_addTodoFragment)
         }
+
+        binding.todoList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0 && binding.floatingActionButton.visibility === View.VISIBLE) {
+                    binding.floatingActionButton.hide()
+
+                } else if (dy < 0 && binding.floatingActionButton.visibility !== View.VISIBLE) {
+                    binding.floatingActionButton.show()
+                }
+            }
+        })
 
     }
 

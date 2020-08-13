@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/the_raink"
-            android:text="Todo"
+            android:text="@string/todo"
             android:textColor="@color/Background"
             android:textSize="40sp"
             android:textStyle="bold" />
@@ -32,23 +32,19 @@
         android:id="@+id/todoList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_marginTop="?attr/actionBarSize" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_margin="27dp"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="auto"
         app:hideMotionSpec="@anim/design_fab_hide_motion_spec"
+        app:layout_anchor="@id/todoList"
+        app:layout_anchorGravity="bottom|end"
         app:showMotionSpec="@anim/design_fab_show_motion_spec"
         app:srcCompat="@drawable/ic_add" />
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

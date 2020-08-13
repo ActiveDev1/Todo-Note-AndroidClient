@@ -98,11 +98,8 @@
             android:textSize="14sp" />
 
         <View
-            android:layout_width="wrap_content"
-            android:layout_height="1.3dp"
-            android:layout_alignStart="@+id/dueDate"
-            android:layout_alignParentBottom="true"
-            android:background="#E9E9E9" />
+            style="@style/Separator"
+            android:layout_alignStart="@+id/dueDate" />
 
     </RelativeLayout>
 
@@ -151,11 +148,8 @@
             android:textSize="14sp" />
 
         <View
-            android:layout_width="wrap_content"
-            android:layout_height="1.3dp"
-            android:layout_alignStart="@+id/reminder"
-            android:layout_alignParentBottom="true"
-            android:background="#E9E9E9" />
+            style="@style/Separator"
+            android:layout_alignStart="@+id/reminder" />
 
     </RelativeLayout>
 
@@ -206,11 +200,8 @@
             android:visibility="visible" />
 
         <View
-            android:layout_width="wrap_content"
-            android:layout_height="1.3dp"
-            android:layout_alignStart="@+id/txtReminderType"
-            android:layout_alignParentBottom="true"
-            android:background="#E9E9E9" />
+            style="@style/Separator"
+            android:layout_alignStart="@+id/txtReminderType" />
 
     </RelativeLayout>
 
@@ -258,11 +249,8 @@
             android:textSize="14sp" />
 
         <View
-            android:layout_width="wrap_content"
-            android:layout_height="1.3dp"
-            android:layout_alignStart="@+id/priority"
-            android:layout_alignParentBottom="true"
-            android:background="#E9E9E9" />
+            style="@style/Separator"
+            android:layout_alignStart="@+id/priority" />
 
     </RelativeLayout>
 
@@ -310,11 +298,8 @@
             android:textSize="14sp" />
 
         <View
-            android:layout_width="wrap_content"
-            android:layout_height="1.3dp"
-            android:layout_alignStart="@+id/highlight"
-            android:layout_alignParentBottom="true"
-            android:background="#E9E9E9" />
+            style="@style/Separator"
+            android:layout_alignStart="@+id/highlight" />
 
     </RelativeLayout>
 
@@ -362,11 +347,8 @@
             android:visibility="visible" />
 
         <View
-            android:layout_width="wrap_content"
-            android:layout_height="1.3dp"
-            android:layout_alignStart="@+id/txtDone"
-            android:layout_alignParentBottom="true"
-            android:background="#E9E9E9" />
+            style="@style/Separator"
+            android:layout_alignStart="@+id/txtDone" />
 
     </RelativeLayout>
 
@@ -382,7 +364,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:showMotionSpec="@anim/design_fab_show_motion_spec"
-        app:srcCompat="@drawable/ic_add" />
+        app:srcCompat="@drawable/ic_done" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -40,7 +40,6 @@ class TodoRequest(
                     response: Response<ResponseBody>
                 ) {
                     if (response.isSuccessful) {
-//                        reminderDao.clear()
                         Log.v("sssss", "Success")
 
                         val res = response.body()!!.string()
@@ -72,21 +71,9 @@ class TodoRequest(
                                         Reminder(id, text, date, create, update, isDone, isFavored)
                                     reminderDao.insert(reminder)
 
-//                                    todo?.add(
-//                                        Todo(
-//                                            id,
-//                                            text,
-//                                            dueDate,
-//                                            createdAt,
-//                                            updatedAt,
-//                                            isDone,
-//                                            isFavored
-//                                        )
-//                                    )
                                 }
                                 Log.v("sssss", "Done")
 
-//                                todoAdapter?.notifyDataSetChanged()
                             }
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -131,13 +118,25 @@ class TodoRequest(
                     response: Response<ResponseBody>
                 ) {
                     if (response.isSuccessful) {
-//                        reminderDao.clear()
 
                         try {
                             val result = JSONObject(response.body()!!.string())
                             val success = result.getBoolean("success")
                             if (success) {
                                 Log.v("sssss", "Done")
+                                val time: Date = Calendar.getInstance().time
+                                val reminderId = reminderDao.lastReminderId().toInt() + 1
+                                val reminder =
+                                    Reminder(
+                                        reminderId.toString(),
+                                        text,
+                                        formatter.parse(dueDate),
+                                        time,
+                                        time,
+                                        isDone,
+                                        isFavored
+                                    )
+                                reminderDao.insert(reminder)
                             } else
                                 Log.v("sssss", "not success")
 

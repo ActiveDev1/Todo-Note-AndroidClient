@@ -39,4 +39,7 @@ interface ReminderDatabaseDao {
     @Query("SELECT * FROM reminder_table ORDER BY due_date LIMIT 1")
     fun getTodo(): Reminder
 
+    @Query("SELECT remindId FROM reminder_table ORDER BY remindId DESC LIMIT 1")
+    fun lastReminderId(): String
+
 }
