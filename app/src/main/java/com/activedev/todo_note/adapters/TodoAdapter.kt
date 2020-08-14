@@ -12,18 +12,17 @@ import com.activedev.todo_note.R
 import com.activedev.todo_note.adapters.TodoAdapter.TodoViewHolder
 import com.activedev.todo_note.database.Reminder
 import com.activedev.todo_note.database.ReminderDatabase
-import com.activedev.todo_note.database.ReminderDatabase.Companion.destroyInstance
 import com.activedev.todo_note.network.TodoRequest
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TodoAdapter(val context: Context?, private val todoList: List<Reminder>, token: String?) :
+class TodoAdapter(val context: Context, private val todoList: List<Reminder>, token: String?) :
     RecyclerView.Adapter<TodoViewHolder>() {
     private val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
 
 
-    private var request = TodoRequest(context!!, token)
+    private var request = TodoRequest(context, token)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val view =
@@ -37,7 +36,7 @@ class TodoAdapter(val context: Context?, private val todoList: List<Reminder>, t
         holder.btnFavored.setOnClickListener {
 
             val reminderDao =
-                context?.let { it1 -> ReminderDatabase.getInstance(it1).reminderDatabaseDao }
+                context.let { it1 -> ReminderDatabase.getInstance(it1).reminderDatabaseDao }
 
             if (item.isFavored == "0") {
                 request.updateTodo(
@@ -47,8 +46,7 @@ class TodoAdapter(val context: Context?, private val todoList: List<Reminder>, t
                     item.isDone,
                     "1"
                 )
-                reminderDao?.updateFavored(item.remindId, "1")
-                destroyInstance()
+                reminderDao.updateFavored(item.remindId, "1")
 //                todoList[position].isFavored = "1"
                 holder.btnFavored.setBackgroundResource(R.drawable.ic_star_on)
                 Log.i("sssss", "To 1")
@@ -61,8 +59,7 @@ class TodoAdapter(val context: Context?, private val todoList: List<Reminder>, t
                     item.isDone,
                     "0"
                 )
-                reminderDao?.updateFavored(item.remindId, "0")
-                destroyInstance()
+                reminderDao.updateFavored(item.remindId, "0")
 //                todoList[position].isFavored = "0"
                 holder.btnFavored.setBackgroundResource(R.drawable.ic_star_off)
                 Log.i("sssss", "To 0")

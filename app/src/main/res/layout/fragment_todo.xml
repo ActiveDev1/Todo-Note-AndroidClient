@@ -41,10 +41,8 @@
         android:layout_margin="27dp"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="auto"
-        app:hideMotionSpec="@anim/design_fab_hide_motion_spec"
         app:layout_anchor="@id/todoList"
         app:layout_anchorGravity="bottom|end"
-        app:showMotionSpec="@anim/design_fab_show_motion_spec"
         app:srcCompat="@drawable/ic_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

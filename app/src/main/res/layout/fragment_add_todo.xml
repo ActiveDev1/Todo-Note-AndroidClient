@@ -99,6 +99,7 @@
 
         <View
             style="@style/Separator"
+            android:background="@color/Separator"
             android:layout_alignStart="@+id/dueDate" />
 
     </RelativeLayout>
@@ -149,6 +150,7 @@
 
         <View
             style="@style/Separator"
+            android:background="@color/Separator"
             android:layout_alignStart="@+id/reminder" />
 
     </RelativeLayout>
@@ -195,12 +197,13 @@
             android:layout_marginBottom="10dp"
             android:layout_toEndOf="@+id/imgReminderType"
             android:fontFamily="@font/opensans_regular"
-            android:text="@string/none"
+            android:text="@string/notification"
             android:textSize="14sp"
             android:visibility="visible" />
 
         <View
             style="@style/Separator"
+            android:background="@color/Separator"
             android:layout_alignStart="@+id/txtReminderType" />
 
     </RelativeLayout>
@@ -250,6 +253,7 @@
 
         <View
             style="@style/Separator"
+            android:background="@color/Separator"
             android:layout_alignStart="@+id/priority" />
 
     </RelativeLayout>
@@ -299,6 +303,7 @@
 
         <View
             style="@style/Separator"
+            android:background="@color/Separator"
             android:layout_alignStart="@+id/highlight" />
 
     </RelativeLayout>
@@ -348,6 +353,7 @@
 
         <View
             style="@style/Separator"
+            android:background="@color/Separator"
             android:layout_alignStart="@+id/txtDone" />
 
     </RelativeLayout>

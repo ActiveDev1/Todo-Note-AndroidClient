@@ -6,5 +6,6 @@
     <color name="Background">#F0EFF1</color>
     <color name="txtColor">#313030</color>
     <color name="imageOn">#ffc107</color>
+    <color name="Separator">#E9E9E9</color>
 
 </resources>

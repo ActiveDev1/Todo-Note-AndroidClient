@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -37,6 +39,9 @@ class TodoFragment : Fragment() {
     lateinit var request: TodoRequest
 
     private var token: String? = ""
+    lateinit var show: Animation
+    lateinit var hide: Animation
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +56,9 @@ class TodoFragment : Fragment() {
         reminderDao = database.reminderDatabaseDao
 
         request = TodoRequest(context!!, token)
+
+        show = AnimationUtils.loadAnimation(context, R.anim.design_fab_show_motion_spec)
+        hide = AnimationUtils.loadAnimation(context, R.anim.design_fab_hide_motion_spec)
 
 
     }
@@ -92,7 +100,7 @@ class TodoFragment : Fragment() {
             ).show()
         }
 
-        todoAdapter = TodoAdapter(context, todoList, token)
+        todoAdapter = TodoAdapter(context!!, todoList, token)
         binding.todoList.adapter = todoAdapter
         todoAdapter.notifyDataSetChanged()
 
@@ -105,11 +113,16 @@ class TodoFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if (dy > 0 && binding.floatingActionButton.visibility === View.VISIBLE) {
+                if (dy > 0 && binding.floatingActionButton.visibility == View.VISIBLE) {
+//                    binding.floatingActionButton.clearAnimation()
+//                    binding.floatingActionButton.startAnimation(hide)
                     binding.floatingActionButton.hide()
 
-                } else if (dy < 0 && binding.floatingActionButton.visibility !== View.VISIBLE) {
+                } else if (dy < 0 && binding.floatingActionButton.visibility != View.VISIBLE) {
+//                    binding.floatingActionButton.clearAnimation()
+//                    binding.floatingActionButton.startAnimation(show)
                     binding.floatingActionButton.show()
+
                 }
             }
         })

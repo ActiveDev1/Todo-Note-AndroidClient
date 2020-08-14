@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.Toast
 import com.activedev.todo_note.database.Reminder
 import com.activedev.todo_note.database.ReminderDatabase
-import com.activedev.todo_note.database.ReminderDatabase.Companion.destroyInstance
 import kotlinx.android.parcel.Parcelize
 import okhttp3.ResponseBody
 import org.json.JSONException
@@ -40,6 +39,7 @@ class TodoRequest(
                     response: Response<ResponseBody>
                 ) {
                     if (response.isSuccessful) {
+                        reminderDao.clear()
                         Log.v("sssss", "Success")
 
                         val res = response.body()!!.string()
@@ -124,19 +124,19 @@ class TodoRequest(
                             val success = result.getBoolean("success")
                             if (success) {
                                 Log.v("sssss", "Done")
-                                val time: Date = Calendar.getInstance().time
-                                val reminderId = reminderDao.lastReminderId().toInt() + 1
-                                val reminder =
-                                    Reminder(
-                                        reminderId.toString(),
-                                        text,
-                                        formatter.parse(dueDate),
-                                        time,
-                                        time,
-                                        isDone,
-                                        isFavored
-                                    )
-                                reminderDao.insert(reminder)
+//                                val time: Date = Calendar.getInstance().time
+//                                val reminderId = reminderDao.lastReminderId().toInt() + 1
+//                                val reminder =
+//                                    Reminder(
+//                                        reminderId.toString(),
+//                                        text,
+//                                        formatter.parse(dueDate),
+//                                        time,
+//                                        time,
+//                                        isDone,
+//                                        isFavored
+//                                    )
+//                                reminderDao.insert(reminder)
                             } else
                                 Log.v("sssss", "not success")
 
@@ -193,13 +193,10 @@ class TodoRequest(
                             val success = result.getBoolean("success")
                             if (success) {
                                 Log.v("sssss", "Done")
-                                destroyInstance()
 
                             } else {
                                 Log.v("sssss", "not success")
-                                destroyInstance()
                             }
-//                            todoAdapter?.notifyDataSetChanged()
 
                         } catch (e: JSONException) {
                             e.printStackTrace()

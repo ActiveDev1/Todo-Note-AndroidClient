@@ -26,7 +26,7 @@
         android:label="fragment_add_todo"
         tools:layout="@layout/fragment_add_todo">
         <action
-            android:id="@+id/action_addTodoFragment_to_todoFragment3"
+            android:id="@+id/action_addTodoFragment_to_todoFragment"
             app:destination="@id/todoFragment"
             app:popUpTo="@id/addTodoFragment"
             app:popUpToInclusive="true" />

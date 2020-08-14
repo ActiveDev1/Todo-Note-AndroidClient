@@ -80,9 +80,9 @@ abstract class ReminderDatabase : RoomDatabase() {
 
         @JvmStatic
         fun destroyInstance() {
-            if (INSTANCE?.isOpen == true) {
-                INSTANCE?.close()
-            }
+//            if (INSTANCE?.isOpen == true) {
+//                INSTANCE?.close()
+//            }
             INSTANCE = null
         }
     }
