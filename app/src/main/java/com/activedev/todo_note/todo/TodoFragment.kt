@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -29,18 +27,15 @@ class TodoFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var todoAdapter: TodoAdapter
 
-    //private var todo: MutableList<Todo> = ArrayList<Todo>()
-//    private var listTodo: List<Reminder> = ArrayList<Reminder>()
-
     private lateinit var binding: FragmentTodoBinding
     private lateinit var database: ReminderDatabase
     private lateinit var reminderDao: ReminderDatabaseDao
 
-    lateinit var request: TodoRequest
+    private lateinit var request: TodoRequest
 
     private var token: String? = ""
-    lateinit var show: Animation
-    lateinit var hide: Animation
+//    lateinit var show: Animation
+//    lateinit var hide: Animation
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,9 +52,8 @@ class TodoFragment : Fragment() {
 
         request = TodoRequest(context!!, token)
 
-        show = AnimationUtils.loadAnimation(context, R.anim.design_fab_show_motion_spec)
-        hide = AnimationUtils.loadAnimation(context, R.anim.design_fab_hide_motion_spec)
-
+//        show = AnimationUtils.loadAnimation(context, R.anim.design_fab_show_motion_spec)
+//        hide = AnimationUtils.loadAnimation(context, R.anim.design_fab_hide_motion_spec)
 
     }
 

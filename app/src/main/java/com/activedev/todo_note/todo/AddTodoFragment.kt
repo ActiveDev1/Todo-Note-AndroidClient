@@ -19,14 +19,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.activedev.todo_note.AlarmReceiver
-import com.activedev.todo_note.AlarmSheduler
+import com.activedev.todo_note.AlarmScheduler
 import com.activedev.todo_note.R
 import com.activedev.todo_note.database.ReminderDatabase
 import com.activedev.todo_note.database.ReminderDatabase.Companion.destroyInstance
 import com.activedev.todo_note.databinding.FragmentAddTodoBinding
 import com.activedev.todo_note.network.TodoRequest
 import com.shashank.sony.fancytoastlib.FancyToast
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -42,7 +41,7 @@ class AddTodoFragment : Fragment() {
     private var isDone = 0
     private var isFavored = 0
     private val newDate = Calendar.getInstance()
-    private val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+//    private val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
 
 
     override fun onCreateView(
@@ -82,23 +81,44 @@ class AddTodoFragment : Fragment() {
 
             if (todoText.isNotEmpty()) {
                 if (dueDate.isNotEmpty()) {
-                    request.createTodo(todoText, dueDate, isDone.toString(), isFavored.toString())
-                    val reminderId =
-                        ReminderDatabase.getInstance(context!!).reminderDatabaseDao.lastReminderId()
-                            .toInt() + 1
-
-                    AlarmSheduler.setReminder(
-                        context,
-                        AlarmReceiver::class.java,
+                    val done = request.createTodo(
                         todoText,
                         dueDate,
-                        reminderId
+                        isDone.toString(),
+                        isFavored.toString()
                     )
+                    if (done) {
+                        val reminderId =
+                            ReminderDatabase.getInstance(context!!).reminderDatabaseDao.lastReminderId()
+                                .toInt() + 1
 
-                    ReminderDatabase.getInstance(context!!).reminderDatabaseDao.getAllTodo()
-                    destroyInstance()
+                        val time: Long = newDate.timeInMillis
+                        AlarmScheduler.setReminder(
+                            context!!,
+                            AlarmReceiver::class.java,
+                            todoText,
+                            time,
+                            reminderId
+                        )
 
-                    findNavController().navigate(R.id.action_addTodoFragment_to_todoFragment)
+                        ReminderDatabase.getInstance(context!!).reminderDatabaseDao.getAllTodo()
+                        destroyInstance()
+
+                        FancyToast.makeText(
+                            context,
+                            "Todo added",
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.WARNING, false
+                        ).show()
+                    } else
+                        FancyToast.makeText(
+                            context,
+                            "Error on save todo",
+                            FancyToast.LENGTH_SHORT,
+                            FancyToast.WARNING, false
+                        ).show()
+
+//                    findNavController().navigate(R.id.action_addTodoFragment_to_todoFragment)
                 } else
                     FancyToast.makeText(
                         context,
@@ -185,13 +205,13 @@ class AddTodoFragment : Fragment() {
     }
 
     private fun datePicker() {
-        val c: Calendar = Calendar.getInstance()
+        val currentDate: Calendar = Calendar.getInstance()
         val mYear: Int
         val mMonth: Int
         val mDay: Int
-        mYear = c.get(Calendar.YEAR)
-        mMonth = c.get(Calendar.MONTH)
-        mDay = c.get(Calendar.DAY_OF_MONTH)
+        mYear = currentDate.get(Calendar.YEAR)
+        mMonth = currentDate.get(Calendar.MONTH)
+        mDay = currentDate.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog =
             context?.let {
@@ -210,27 +230,31 @@ class AddTodoFragment : Fragment() {
     private fun timePicker(year: Int, monthOfYear: Int, dayOfMonth: Int) {
         val mHour: Int
         val mMinute: Int
-        val c = Calendar.getInstance()
-        mHour = c.get(Calendar.HOUR_OF_DAY)
-        mMinute = c.get(Calendar.MINUTE)
+        val currentTime = Calendar.getInstance()
+        mHour = currentTime.get(Calendar.HOUR_OF_DAY)
+        mMinute = currentTime.get(Calendar.MINUTE)
 
         val timePickerDialog = TimePickerDialog(
             context,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                newDate.set(year, monthOfYear, dayOfMonth, hourOfDay, minute)
-                time = if (minute < 9)
-                    "$hourOfDay:0$minute:00"
-                else
-                    "$hourOfDay:$minute:00"
-                dueDate = "$date $time"
-                binding.dueDate.text = dueDate
-                binding.imgDate.setSvgColor(R.color.imageOn)
-                binding.imgReminder.setImageResource(R.drawable.ic_reminder_on)
-                reminder = 1
-                binding.reminder.text = getString(R.string.remind_me_when_due)
-                binding.rlReminderType.visibility = View.VISIBLE
-                binding.imgReminderType.setSvgColor((R.color.imageOn))
+                newDate.set(year, monthOfYear, dayOfMonth, hourOfDay, minute, 0)
 
+                if (newDate <= currentTime) {
+                    FancyToast.makeText(context, "Invalid Time", FancyToast.LENGTH_LONG).show()
+                } else {
+                    time = if (minute < 9)
+                        "$hourOfDay:0$minute:00"
+                    else
+                        "$hourOfDay:$minute:00"
+                    dueDate = "$date $time"
+                    binding.dueDate.text = dueDate
+                    binding.imgDate.setSvgColor(R.color.imageOn)
+                    binding.imgReminder.setImageResource(R.drawable.ic_reminder_on)
+                    reminder = 1
+                    binding.reminder.text = getString(R.string.remind_me_when_due)
+                    binding.rlReminderType.visibility = View.VISIBLE
+                    binding.imgReminderType.setSvgColor((R.color.imageOn))
+                }
             },
             mHour,
             mMinute,

@@ -21,7 +21,7 @@ import java.util.*
 
 class TodoRequest(
     var context: Context,
-    var token: String?
+    private var token: String?
 ) {
     val reminderDao = ReminderDatabase.getInstance(context).reminderDatabaseDao
 
@@ -40,7 +40,7 @@ class TodoRequest(
                 ) {
                     if (response.isSuccessful) {
                         reminderDao.clear()
-                        Log.v("sssss", "Success")
+                        Log.v("sssss", "All todo were taken")
 
                         val res = response.body()!!.string()
                         try {
@@ -72,8 +72,6 @@ class TodoRequest(
                                     reminderDao.insert(reminder)
 
                                 }
-                                Log.v("sssss", "Done")
-
                             }
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -82,14 +80,7 @@ class TodoRequest(
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    /*  FancyToast.makeText(
-                          context,
-                          "Error on connection !!",
-                          FancyToast.LENGTH_SHORT,
-                          FancyToast.ERROR, false
-                      ).show()*/
                     Log.v("sssss", "Error on connect")
-
                 }
             })
         } catch (e: JSONException) {
@@ -103,8 +94,8 @@ class TodoRequest(
         dueDate: String,
         isDone: String,
         isFavored: String
-    ) {
-
+    ): Boolean {
+        var done = false
         try {
             Log.v("sssss", "Create todo ...")
 
@@ -123,7 +114,8 @@ class TodoRequest(
                             val result = JSONObject(response.body()!!.string())
                             val success = result.getBoolean("success")
                             if (success) {
-                                Log.v("sssss", "Done")
+                                done = true
+                                Log.v("sssss", "Todo created")
 //                                val time: Date = Calendar.getInstance().time
 //                                val reminderId = reminderDao.lastReminderId().toInt() + 1
 //                                val reminder =
@@ -137,8 +129,9 @@ class TodoRequest(
 //                                        isFavored
 //                                    )
 //                                reminderDao.insert(reminder)
+
                             } else
-                                Log.v("sssss", "not success")
+                                Log.v("sssss", "Todo not created")
 
                         } catch (e: JSONException) {
                             e.printStackTrace()
@@ -150,12 +143,7 @@ class TodoRequest(
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                    FancyToast.makeText(
-//                        context,
-//                        "Error on connection !!",
-//                        FancyToast.LENGTH_SHORT,
-//                        FancyToast.ERROR, false
-//                    ).show()
+
                     Log.v("sssss", "Error on connect")
 
                 }
@@ -163,7 +151,7 @@ class TodoRequest(
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
+        return done
     }
 
 
@@ -192,10 +180,10 @@ class TodoRequest(
                             val result = JSONObject(response.body()!!.string())
                             val success = result.getBoolean("success")
                             if (success) {
-                                Log.v("sssss", "Done")
+                                Log.v("sssss", "Todo updated")
 
                             } else {
-                                Log.v("sssss", "not success")
+                                Log.v("sssss", "Todo not updated")
                             }
 
                         } catch (e: JSONException) {
@@ -208,14 +196,7 @@ class TodoRequest(
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                    FancyToast.makeText(
-//                        context,
-//                        "Error on connection !!",
-//                        FancyToast.LENGTH_SHORT,
-//                        FancyToast.ERROR, false
-//                    ).show()
                     Log.v("sssss", "Error on connect")
-
                 }
             })
         } catch (e: IOException) {

@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 
-private const val BASE_URL = "http://192.168.1.36//Todo-Note/"
+private const val BASE_URL = "http://192.168.1.37//Todo-Note/"
 
 private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
