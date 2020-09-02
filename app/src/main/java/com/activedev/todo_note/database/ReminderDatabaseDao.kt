@@ -30,6 +30,12 @@ interface ReminderDatabaseDao {
         isFavored: String
     )
 
+    @Query("UPDATE reminder_table SET is_done = :isDone WHERE remindId = :remindId")
+    fun updateDone(
+        remindId: String,
+        isDone: String
+    )
+
     @Query("DELETE FROM reminder_table")
     fun clear()
 

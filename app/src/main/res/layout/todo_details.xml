@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="70dp"
-    android:layout_gravity="center">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    tools:ignore="ContentDescription">
 
 
     <ImageView
@@ -11,6 +13,15 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary" />
 
+    <ImageButton
+        android:id="@+id/imgDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/view"
+        android:background="@drawable/ic_not_done" />
+
     <TextView
         android:id="@+id/textTodo"
         android:layout_width="wrap_content"
@@ -18,11 +29,12 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/imgDone"
+        android:fontFamily="@font/opensans_bold"
+        android:text="@string/todo"
         android:textColor="@color/txtColor"
         android:textSize="16sp"
-        android:layout_toEndOf="@+id/view"
-        android:fontFamily="@font/opensans_bold"
-        android:text="Todo" />
+        tools:ignore="RelativeOverlap" />
 
     <TextView
         android:id="@+id/dueData"
@@ -31,9 +43,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_toEndOf="@+id/view"
+        android:layout_toEndOf="@+id/imgDone"
         android:fontFamily="@font/opensans_semibold"
-        android:text="dueData" />
+        android:text="@string/due_date" />
 
     <ImageButton
         android:id="@+id/btnFavored"
