@@ -94,8 +94,7 @@ class TodoRequest(
         dueDate: String,
         isDone: String,
         isFavored: String
-    ): Boolean {
-        var done = false
+    ) {
         try {
             Log.v("sssss", "Create todo ...")
 
@@ -109,12 +108,10 @@ class TodoRequest(
                     response: Response<ResponseBody>
                 ) {
                     if (response.isSuccessful) {
-
                         try {
                             val result = JSONObject(response.body()!!.string())
                             val success = result.getBoolean("success")
                             if (success) {
-                                done = true
                                 Log.v("sssss", "Todo created")
 //                                val time: Date = Calendar.getInstance().time
 //                                val reminderId = reminderDao.lastReminderId().toInt() + 1
@@ -138,20 +135,17 @@ class TodoRequest(
                         }
 
                     } else
-                        Log.v("sssss", "Error on response")
+                        Log.v("sssss", "Error on response code: ${response.code()}")
 
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-
                     Log.v("sssss", "Error on connect")
-
                 }
             })
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        return done
     }
 
 
@@ -202,9 +196,7 @@ class TodoRequest(
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
     }
-
 }
 
 @Parcelize

@@ -63,7 +63,8 @@ class TodoFragment : Fragment() {
     ): View? {
         binding = FragmentTodoBinding.inflate(inflater, container, false)
         (activity as AppCompatActivity?)?.setSupportActionBar(binding.toolbar)
-        (activity as AppCompatActivity).supportActionBar?.title = ""
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         return binding.root
     }

@@ -15,28 +15,25 @@ object AlarmScheduler {
         cls: Class<*>,
         todoText: String,
         time: Long,
-        reminderId: Int
+        reminderId: Int,
+        reminderType: String,
+        priority: String
     ) {
-//        val formatter: DateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-//        val calendar = Calendar.getInstance(Locale.getDefault())
-//        val remind: Date? = formatter.parse(dueDate)
-//        val setCalendar = Calendar.getInstance()
-//        calendar.time = remind!!
 
-//        cancelReminder(context!!, cls, reminderId)
-//        if (setCalendar.before(calendar)) setCalendar.add(Calendar.DATE, 1)
+        cancelReminder(context, cls, reminderId)
 
-//        val receiver = ComponentName(context, cls)
-//        val packageManager = context.packageManager
-//        packageManager.setComponentEnabledSetting(
-//            receiver,
-//            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-//            PackageManager.DONT_KILL_APP
-//        )
+        val receiver = ComponentName(context, cls)
+        val packageManager = context.packageManager
+        packageManager.setComponentEnabledSetting(
+            receiver,
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            PackageManager.DONT_KILL_APP
+        )
         val alarmIntent = Intent(context, cls)
         alarmIntent.putExtra("text", todoText)
-//        alarmIntent.putExtra("dueDate", remind.toString())
+        alarmIntent.putExtra("reminderType", reminderType)
         alarmIntent.putExtra("remindId", reminderId)
+        alarmIntent.putExtra("priority", priority)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             reminderId,
@@ -84,6 +81,5 @@ object AlarmScheduler {
         alarmManager.cancel(pendingIntent)
         pendingIntent.cancel()
     }
-
 
 }

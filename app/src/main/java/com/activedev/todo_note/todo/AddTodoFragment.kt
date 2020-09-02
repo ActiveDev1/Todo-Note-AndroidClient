@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.ColorRes
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -38,6 +39,8 @@ class AddTodoFragment : Fragment() {
     private var date = ""
     private var time = ""
     private var reminder = 0
+    private var reminderType = "Notification"
+    private var priority = "None"
     private var isDone = 0
     private var isFavored = 0
     private val newDate = Calendar.getInstance()
@@ -78,47 +81,44 @@ class AddTodoFragment : Fragment() {
 
         binding.saveTodo.setOnClickListener {
             todoText = binding.todoText.text.toString()
-
             if (todoText.isNotEmpty()) {
                 if (dueDate.isNotEmpty()) {
-                    val done = request.createTodo(
+                    request.createTodo(
                         todoText,
                         dueDate,
                         isDone.toString(),
                         isFavored.toString()
                     )
-                    if (done) {
+
+                    if (reminder == 1) {
+
                         val reminderId =
                             ReminderDatabase.getInstance(context!!).reminderDatabaseDao.lastReminderId()
                                 .toInt() + 1
 
                         val time: Long = newDate.timeInMillis
                         AlarmScheduler.setReminder(
-                            context!!,
+                            requireContext(),
                             AlarmReceiver::class.java,
                             todoText,
                             time,
-                            reminderId
+                            reminderId,
+                            reminderType,
+                            priority
                         )
+                    }
 
-                        ReminderDatabase.getInstance(context!!).reminderDatabaseDao.getAllTodo()
-                        destroyInstance()
+                    ReminderDatabase.getInstance(context!!).reminderDatabaseDao.getAllTodo()
+                    destroyInstance()
 
-                        FancyToast.makeText(
-                            context,
-                            "Todo added",
-                            FancyToast.LENGTH_SHORT,
-                            FancyToast.WARNING, false
-                        ).show()
-                    } else
-                        FancyToast.makeText(
-                            context,
-                            "Error on save todo",
-                            FancyToast.LENGTH_SHORT,
-                            FancyToast.WARNING, false
-                        ).show()
+                    FancyToast.makeText(
+                        context,
+                        "Todo added",
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.SUCCESS, false
+                    ).show()
+                    findNavController().navigate(R.id.action_addTodoFragment_to_todoFragment)
 
-//                    findNavController().navigate(R.id.action_addTodoFragment_to_todoFragment)
                 } else
                     FancyToast.makeText(
                         context,
@@ -129,7 +129,7 @@ class AddTodoFragment : Fragment() {
             } else
                 FancyToast.makeText(
                     context,
-                    "Input a task name",
+                    "Set a task name",
                     FancyToast.LENGTH_SHORT,
                     FancyToast.WARNING, false
                 ).show()
@@ -172,6 +172,15 @@ class AddTodoFragment : Fragment() {
                 binding.imgReminderType.setSvgColor((R.color.imageOn))
             }
         }
+
+        binding.rlReminderType.setOnClickListener {
+            showReminderTypeDialog()
+        }
+
+        binding.rlPriority.setOnClickListener {
+            showPriorityDialog()
+        }
+
 
         binding.rlIsFavored.setOnClickListener {
 
@@ -261,6 +270,94 @@ class AddTodoFragment : Fragment() {
             true
         )
         timePickerDialog.show()
+    }
+
+    private fun showReminderTypeDialog() {
+        val builder = context?.let { AlertDialog.Builder(it) }
+        builder?.setTitle("Reminder Type")
+
+        val items =
+            arrayOf("Notification", "Alarm", "None")
+        var checkedItem = 0
+        when (binding.reminderType.text) {
+            "Notification" -> checkedItem = 0
+            "Alarm" -> checkedItem = 1
+            "None" -> checkedItem = 2
+        }
+
+        builder?.setSingleChoiceItems(
+            items, checkedItem
+        ) { dialog, which ->
+            when (which) {
+                0 -> {
+                    reminderType = "Notification"
+                    binding.reminderType.text = getString(R.string.notification)
+                    dialog.cancel()
+                }
+                1 -> {
+                    reminderType = "Alarm"
+                    binding.reminderType.text = getString(R.string.alarm)
+                    dialog.cancel()
+                }
+                2 -> {
+                    reminderType = "None"
+                    binding.reminderType.text = getString(R.string.none)
+                    dialog.cancel()
+                }
+            }
+        }
+        builder?.setNegativeButton("Cancel", null)
+        val dialog: AlertDialog = builder!!.create()
+        dialog.show()
+    }
+
+    private fun showPriorityDialog() {
+        val builder = context?.let { AlertDialog.Builder(it) }
+        builder?.setTitle("Task Priority")
+
+        val items =
+            arrayOf("High", "Medium", "Low", "None")
+        var checkedItem = 0
+        when (binding.priority.text) {
+            "High" -> checkedItem = 0
+            "Medium" -> checkedItem = 1
+            "Low" -> checkedItem = 2
+            "None" -> checkedItem = 3
+        }
+
+        builder?.setSingleChoiceItems(
+            items, checkedItem
+        ) { dialog, which ->
+            when (which) {
+                0 -> {
+                    priority = "High"
+                    binding.priority.text = getString(R.string.high)
+                    binding.imgPriority.setSvgColor(R.color.high)
+                    dialog.cancel()
+                }
+                1 -> {
+                    priority = "Medium"
+                    binding.priority.text = getString(R.string.medium)
+                    binding.imgPriority.setSvgColor(R.color.medium)
+                    dialog.cancel()
+                }
+                2 -> {
+                    priority = "Low"
+                    binding.priority.text = getString(R.string.low)
+                    binding.imgPriority.setSvgColor(R.color.low)
+                    dialog.cancel()
+                }
+                3 -> {
+                    priority = "None"
+                    binding.priority.text = getString(R.string.none)
+                    binding.imgPriority.setSvgColor(R.color.black)
+                    dialog.cancel()
+                }
+            }
+        }
+        builder?.setNegativeButton("Cancel", null)
+        val dialog: AlertDialog = builder!!.create()
+        dialog.show()
     }
 
     private fun ImageView.setSvgColor(@ColorRes color: Int) =

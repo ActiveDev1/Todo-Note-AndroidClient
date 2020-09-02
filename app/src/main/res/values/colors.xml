@@ -5,7 +5,11 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="Background">#F0EFF1</color>
     <color name="txtColor">#313030</color>
+    <color name="black">#000000</color>
     <color name="imageOn">#ffc107</color>
     <color name="Separator">#E9E9E9</color>
+    <color name="high">#D70000</color>
+    <color name="medium">#D78100</color>
+    <color name="low">#08C302</color>
 
 </resources>

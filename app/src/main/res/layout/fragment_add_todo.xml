@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     tools:context=".todo.AddTodoFragment"
     tools:ignore="ContentDescription">
 
@@ -78,7 +78,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/imgDate"
-            android:fontFamily="@font/opensans_bold"
+            android:fontFamily="@font/opensans_semibold"
             android:text="@string/due_date"
             android:textColor="@color/txtColor"
             android:textSize="18sp"
@@ -99,8 +99,8 @@
 
         <View
             style="@style/Separator"
-            android:background="@color/Separator"
-            android:layout_alignStart="@+id/dueDate" />
+            android:layout_alignStart="@+id/dueDate"
+            android:background="@color/Separator" />
 
     </RelativeLayout>
 
@@ -130,7 +130,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/imgReminder"
-            android:fontFamily="@font/opensans_bold"
+            android:fontFamily="@font/opensans_semibold"
             android:text="@string/reminder"
             android:textColor="@color/txtColor"
             android:textSize="18sp" />
@@ -150,8 +150,8 @@
 
         <View
             style="@style/Separator"
-            android:background="@color/Separator"
-            android:layout_alignStart="@+id/reminder" />
+            android:layout_alignStart="@+id/reminder"
+            android:background="@color/Separator" />
 
     </RelativeLayout>
 
@@ -182,7 +182,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/imgReminderType"
-            android:fontFamily="@font/opensans_bold"
+            android:fontFamily="@font/opensans_semibold"
             android:text="@string/reminder_type"
             android:textColor="@color/txtColor"
             android:textSize="18sp" />
@@ -203,8 +203,8 @@
 
         <View
             style="@style/Separator"
-            android:background="@color/Separator"
-            android:layout_alignStart="@+id/txtReminderType" />
+            android:layout_alignStart="@+id/txtReminderType"
+            android:background="@color/Separator" />
 
     </RelativeLayout>
 
@@ -233,7 +233,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/imgPriority"
-            android:fontFamily="@font/opensans_bold"
+            android:fontFamily="@font/opensans_semibold"
             android:text="@string/priority"
             android:textColor="@color/txtColor"
             android:textSize="18sp" />
@@ -253,8 +253,8 @@
 
         <View
             style="@style/Separator"
-            android:background="@color/Separator"
-            android:layout_alignStart="@+id/priority" />
+            android:layout_alignStart="@+id/priority"
+            android:background="@color/Separator" />
 
     </RelativeLayout>
 
@@ -283,7 +283,7 @@
             android:layout_marginStart="22dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/imgHighlight"
-            android:fontFamily="@font/opensans_bold"
+            android:fontFamily="@font/opensans_semibold"
             android:text="@string/highlight"
             android:textColor="@color/txtColor"
             android:textSize="18sp" />
@@ -303,8 +303,8 @@
 
         <View
             style="@style/Separator"
-            android:background="@color/Separator"
-            android:layout_alignStart="@+id/highlight" />
+            android:layout_alignStart="@+id/highlight"
+            android:background="@color/Separator" />
 
     </RelativeLayout>
 
@@ -333,7 +333,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/imgDone"
-            android:fontFamily="@font/opensans_bold"
+            android:fontFamily="@font/opensans_semibold"
             android:text="@string/completed"
             android:textColor="@color/txtColor"
             android:textSize="18sp" />
@@ -353,8 +353,8 @@
 
         <View
             style="@style/Separator"
-            android:background="@color/Separator"
-            android:layout_alignStart="@+id/txtDone" />
+            android:layout_alignStart="@+id/txtDone"
+            android:background="@color/Separator" />
 
     </RelativeLayout>
 

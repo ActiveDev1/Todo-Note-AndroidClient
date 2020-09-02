@@ -1,14 +1,17 @@
 package com.activedev.todo_note
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
+import java.util.*
 
 object NotificationScheduler {
 
@@ -16,7 +19,8 @@ object NotificationScheduler {
         context: Context,
         cls: Class<*>?,
         text: String?,
-        requestCode: Int
+        requestCode: Int,
+        priority: String?
     ) {
         val notifySound =
             RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
@@ -40,32 +44,49 @@ object NotificationScheduler {
         val builder =
             NotificationCompat.Builder(context, "my_channel_01")
 
-        val notification = builder.setContentTitle("Reminder")
-            .setContentText(text)
+        builder.setContentTitle("Reminder")
+            .setContentText("It's time to do $text")
             .setAutoCancel(true)
+            .setWhen(Calendar.getInstance().timeInMillis)
             .setSound(notifySound)
+            .setVibrate(longArrayOf(1000, 1000, 1000))
             .setSmallIcon(R.mipmap.ic_launcher_round)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent).build()
+            .setLights(Color.RED, 3000, 3000)
+            .setContentIntent(pendingIntent)
+
+        var importance = 0
+        when (priority) {
+            "High" -> importance = 4
+            "Medium" -> importance = 1
+            "Low" -> importance = 2
+            "None" -> importance = 3
+        }
+
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel =
                 NotificationChannel(
                     "my_channel_01",
                     "Reminder",
-                    NotificationManager.IMPORTANCE_HIGH
+                    importance
                 )
-            val notificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            channel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+            channel.enableVibration(true)
+
             notificationManager.createNotificationChannel(channel)
-
-            notificationManager.notify(requestCode, notification)
         } else {
-            val notificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.notify(requestCode, notification)
-
+            when (priority) {
+                "High" -> builder.priority = Notification.PRIORITY_HIGH
+                "Medium" -> builder.priority = Notification.PRIORITY_MIN
+                "Low" -> builder.priority = Notification.PRIORITY_LOW
+                "None" -> builder.priority = Notification.PRIORITY_DEFAULT
+            }
         }
 
+        val notification = builder.build()
+        notificationManager.notify(requestCode, notification)
     }
 }

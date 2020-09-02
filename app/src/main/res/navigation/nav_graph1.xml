@@ -31,4 +31,19 @@
             app:popUpTo="@id/addTodoFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="com.activedev.todo_note.AlarmFragment"
+        android:label="fragment_alarm"
+        tools:layout="@layout/fragment_alarm">
+        <action
+            android:id="@+id/action_alarmFragment_to_todoFragment"
+            app:destination="@id/todoFragment"
+            app:popUpTo="@id/alarmFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_to_alarmFragment"
+        app:destination="@id/alarmFragment" />
+
 </navigation>
